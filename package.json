@@ -1,0 +1,27 @@
+{
+  "name": "ajaxy-websockets",
+  "version": "0.0.1",
+  "description": "Enables you to route requests through websockets just like you would with HTTP or Express modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/haggy/Ajaxy-Websockets.git"
+  },
+  "keywords": [
+    "ajaxy-websockets",
+    "websockets",
+    "ajax"
+  ],
+  "author": "Dave Hagman <haggy102@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haggy/Ajaxy-Websockets/issues"
+  },
+  "homepage": "https://github.com/haggy/Ajaxy-Websockets",
+  "dependencies": {
+    "path-to-regexp": "1.x.x"
+  }
+}
