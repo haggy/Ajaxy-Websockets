@@ -81,6 +81,7 @@ var socketRouter = new AjaxySocketRouter(io);
 ```
 
 __On the client:__
+Make sure to copy the ajaxy websocket client (from the `client` folder in npm module) to somewhere accessible to the browser.
 
 ```html
 <!DOCTYPE html>
