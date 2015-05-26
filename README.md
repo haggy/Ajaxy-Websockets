@@ -95,7 +95,7 @@ __On the client:__
         <script src="/my/path/to/ajaxy-socket.js"></script>
     </head>
     <body>
-
+        <button id="my-button">Gimme socket data!</button>
     </body>
     <script>
         // Your socket server address
@@ -134,6 +134,28 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var socketRouter = new AjaxySocketRouter(io);
 
+```
+
+Need to secure sockets with authentication using things like passport for Socket.io? No problem!
+
+```javascript
+// Basic socket.io setup
+var io = require('socket.io')(server);
+
+// Use the socket.io bundle and passport libs
+var socketIOBundle = require('socket.io-bundle');
+var socketIOPassport = require('socket.io-passport');
+// Setup auth
+io.use(socketIOBundle.cookieParser());
+io.use(socketIOBundle.session({
+    secret: 'MY_SUPER_SECRET_STRING',
+    key: 'sid'
+}));
+io.use(socketIOPassport.initialize());
+io.use(socketIOPassport.session());
+
+// Create AjaxySocketRouter the regular way
+var ajaxySocketsRouter = new AjaxySocketRouter(io);
 ```
 
 ## API
