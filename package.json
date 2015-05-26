@@ -1,6 +1,6 @@
 {
   "name": "ajaxy-websockets",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Enables you to route requests through websockets just like you would with HTTP or Express modules",
   "main": "index.js",
   "scripts": {
