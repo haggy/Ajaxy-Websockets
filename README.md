@@ -53,7 +53,7 @@ socketRouter.get('/api/some_object/:id', myRequestHandler);
 server.get('/api/some_object/:id', myRequestHandler);
 ```
 
-__ Dev Note:__ This is still in it's early stages so take care if you plan to use this in production apps. See the roadmap
+__Dev Note:__ This is still in it's early stages so take care if you plan to use this in production apps. See the roadmap
 below for what needs to be implemented.
 
 ## Dependencies
@@ -63,6 +63,8 @@ below for what needs to be implemented.
 ## The full setup
 This solution does require the use of socket.io (shouldn't be a huge deal since it's the most popular sockets library on NPM).
 This can be used with or without Express.
+
+__On the server:__
 
 ```javascript
 var AjaxySocketRouter = require('ajaxy-sockets');
@@ -76,6 +78,43 @@ var server = require('http').createServer(function(request, response) {
 var io = require('socket.io')(server);
 var socketRouter = new AjaxySocketRouter(io);
 
+```
+
+__On the client:__
+
+```html
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Websockets routing!</title>
+
+        <!-- load in Socket.io client -->
+        <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+        <!-- load in AjaxySocket -->
+        <script src="/my/path/to/ajaxy-socket.js"></script>
+    </head>
+    <body>
+
+    </body>
+    <script>
+        // Your socket server address
+        var host = 'ws:127.0.0.1:8888';
+        var socket = new AjaxySocket({
+            socketURL: host
+        });
+        socket.start();
+
+        // Setup done. Start using it!
+
+        // When user clicks the button, get data for ID 1234567 from websocket!
+        $('#my-button').click(function() {
+            socket.get('/api/some_object/1234567', function(response) {
+                console.log(response.data); // "Hello from ID 1234567"
+            });
+        });
+    </script>
+</html>
 ```
 
 That's it! It can also be used with express.
