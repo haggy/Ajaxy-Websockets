@@ -28,6 +28,31 @@ $('#my-button').click(function() {
 });
 ```
 
+### Gracefullly degrade to AJAX requests if sockets aren't available
+The beautiful part about all this is that you can assign the exact same handler method for both sockets and AJAX!
+
+```javascript
+var myRequestHandler = function(req, res) { 
+    if(req.params.id) {
+        // Got an ID! Send back an "object"
+        res.json({
+            status: 'success',
+            obj: {id: req.params.id}
+        });
+    } else {
+        res.json({
+            status: 'failed',
+            message: 'Missing ID param!'
+        });
+    }
+};
+
+// Handle incoming socket requests
+socketRouter.get('/api/some_object/:id', myRequestHandler);
+// Gracefully degrade to AJAX
+server.get('/api/some_object/:id', myRequestHandler);
+```
+
 ## Dependencies
 
 * [Socket.io](https://www.npmjs.com/package/socket.io)
@@ -59,8 +84,6 @@ var express = require('express');
 var app = express();
 app.use( ... );
 
-app.get('/some/url/to/get', function(req, res) { ... });
-
 // Now with express setup, just create an HTTP webserver 
 // (passing it express app) and the rest is the same as before!
 var server = require('http').createServer(app);
@@ -69,31 +92,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var socketRouter = new AjaxySocketRouter(io);
 
-```
-
-## Gracefullly degrading to AJAX requests when sockets aren't available
-The beautiful part about all this is that you can assign the exact same handler method for both sockets and AJAX!
-
-```javascript
-var myRequestHandler = function(req, res) { 
-    if(req.params.id) {
-        // Got an ID! Send back an "object"
-        res.json({
-            status: 'success',
-            obj: {id: req.params.id}
-        });
-    } else {
-        res.json({
-            status: 'failed',
-            message: 'Missing ID param!'
-        });
-    }
-};
-
-// Handle incoming socket requests
-socketRouter.get('/api/some_object/:id', myRequestHandler);
-// Gracefully degrade to AJAX
-server.get('/api/some_object/:id', myRequestHandler);
 ```
 
 ## API
@@ -132,3 +130,53 @@ Setup a handler for DELETE type requests
 * Params: 
   * __string__ route
   * __function__ handler
+
+### Client side AjaxySocket
+
+`constructor`
+
+* Params
+  * __string__ socketURL - The URI for websocket server (ex. ws://127.0.0.1:8888)
+
+`start`
+Inits the websocket. Must be called when you want the socket to connect to the server.
+
+* Params NONE
+
+`get`
+Make a GET type request to the socket server
+
+* Params
+  * __string__ url - The request url
+  * __function__ callback - The callback which is executed when the socket receives a response
+
+`post`
+Make a POST type request to the socket server
+
+* Params
+  * __string__ url - The request url
+  * __function__ callback - The callback which is executed when the socket receives a response
+
+`patch`
+Make a PATCH type request to the socket server
+
+* Params
+  * __string__ url - The request url
+  * __function__ callback - The callback which is executed when the socket receives a response
+
+`del`
+Make a DELETE type request to the socket server
+
+* Params
+  * __string__ url - The request url
+  * __function__ callback - The callback which is executed when the socket receives a response
+
+`ajaxyRequest`
+Makes a request based on the options object passed to it (similiar to jQuery `$.ajax()` method)
+
+* Params
+  * __object__ options - An object with the following properties:
+    * __string__ url
+    * __string__ method - The request type (GET, POST, etc)
+    * __object__ data - (optional) The data to be passed with the request
+  * __function__ callback - Exectued when the response is received
