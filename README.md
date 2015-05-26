@@ -67,7 +67,7 @@ This can be used with or without Express.
 __On the server:__
 
 ```javascript
-var AjaxySocketRouter = require('ajaxy-sockets');
+var AjaxySocketRouter = require('ajaxy-websockets');
 
 // Instantiate a basic web server
 var server = require('http').createServer(function(request, response) {
@@ -92,7 +92,7 @@ __On the client:__
         <!-- load in Socket.io client -->
         <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
         <!-- load in AjaxySocket -->
-        <script src="/my/path/to/ajaxy-socket.js"></script>
+        <script src="/my/path/to/ajaxy-websocket-client.js"></script>
     </head>
     <body>
         <button id="my-button">Gimme socket data!</button>
