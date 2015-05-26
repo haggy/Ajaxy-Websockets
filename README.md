@@ -9,7 +9,7 @@ var socketRouter = new AjaxySocketRouter(io);
 
 // This is using websockets, not HTTP!
 socketRouter.get('/api/some_object/:id', function(req, res) {
-    res.send('Hello from ID ' + req.params.id);
+    res.send("Hello from ID " + req.params.id);
 });
 
 
@@ -52,6 +52,9 @@ socketRouter.get('/api/some_object/:id', myRequestHandler);
 // Gracefully degrade to AJAX
 server.get('/api/some_object/:id', myRequestHandler);
 ```
+
+__ Dev Note:__ This is still in it's early stages so take care if you plan to use this in production apps. See the roadmap
+below for what needs to be implemented.
 
 ## Dependencies
 
@@ -180,3 +183,9 @@ Makes a request based on the options object passed to it (similiar to jQuery `$.
     * __string__ method - The request type (GET, POST, etc)
     * __object__ data - (optional) The data to be passed with the request
   * __function__ callback - Exectued when the response is received
+
+## Roadmap
+
+* Add good error handling
+* Promises!
+* Add various methods to request/response classes that are available in Express req/response
