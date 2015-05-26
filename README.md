@@ -50,7 +50,7 @@ var socketRouter = new AjaxySocketRouter(io);
 
 ```
 
-That's it! This is just using a basic node HTTP web server. It can also be used with express.
+That's it! It can also be used with express.
 
 ```javascript
 var express = require('express');
@@ -97,3 +97,38 @@ server.get('/api/some_object/:id', myRequestHandler);
 ```
 
 ## API
+
+### Server side AjaxySocketsRouter
+
+`constructor`
+
+* Params
+  * __Server__ server instance
+
+`get`
+Setup a handler for GET type requests
+
+* Params: 
+  * __string__ route
+  * __function__ handler
+
+`post`
+Setup a handler for POST type requests
+
+* Params: 
+  * __string__ route
+  * __function__ handler
+
+`patch`
+Setup a handler for PATCH type requests
+
+* Params: 
+  * __string__ route
+  * __function__ handler
+
+`del`
+Setup a handler for DELETE type requests
+
+* Params: 
+  * __string__ route
+  * __function__ handler
