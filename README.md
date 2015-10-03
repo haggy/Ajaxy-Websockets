@@ -5,7 +5,7 @@ Familiar with node http and Express web servers? AJAXy Websockets enables you to
 ```javascript
 /***** On the server *****/
 var io = require('socket.io')(server);
-var socketRouter = new AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io, servers);
 
 // This is using websockets, not HTTP!
 socketRouter.get('/api/some_object/:id', function(req, res) {
@@ -23,7 +23,7 @@ socket.start();
 // When user clicks the button, get data for ID 1234567 from websocket!
 $('#my-button').click(function() {
     socket.get('/api/some_object/1234567', function(response) {
-        console.log(response.data); // "Hello from ID 1234567"
+        console.log(response); // "Hello from ID 1234567"
     });
 });
 ```
@@ -32,7 +32,7 @@ $('#my-button').click(function() {
 The beautiful part about all this is that you can assign the exact same handler method for both sockets and AJAX!
 
 ```javascript
-var myRequestHandler = function(req, res) { 
+var myRequestHandler = function(req, res) {
     if(req.params.id) {
         // Got an ID! Send back an "object"
         res.json({
@@ -76,7 +76,7 @@ var server = require('http').createServer(function(request, response) {
 
 // Require socket.io and pass it to an instance of ajaxy sockets
 var io = require('socket.io')(server);
-var socketRouter = new AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io);
 
 ```
 
@@ -93,14 +93,14 @@ Make sure to copy the ajaxy websocket client (from the `client` folder in npm mo
         <!-- load in Socket.io client -->
         <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
         <!-- load in AjaxySocket -->
-        <script src="/my/path/to/ajaxy-websocket-client.js"></script>
+        <script src="/ajaxy/ajaxyclient.js"></script>
     </head>
     <body>
         <button id="my-button">Gimme socket data!</button>
     </body>
     <script>
         // Your socket server address
-        var host = 'ws:127.0.0.1:8888';
+        var host = 'ws://127.0.0.1:8888';
         var socket = new AjaxySocket({
             socketURL: host
         });
@@ -127,13 +127,13 @@ var express = require('express');
 var app = express();
 app.use( ... );
 
-// Now with express setup, just create an HTTP webserver 
+// Now with express setup, just create an HTTP webserver
 // (passing it express app) and the rest is the same as before!
 var server = require('http').createServer(app);
 
 // Require socket.io and pass it to an instance of ajaxy sockets
 var io = require('socket.io')(server);
-var socketRouter = new AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io);
 
 ```
 
@@ -171,28 +171,28 @@ var ajaxySocketsRouter = new AjaxySocketRouter(io);
 `get`
 Setup a handler for GET type requests
 
-* Params: 
+* Params:
   * __string__ route
   * __function__ handler
 
 `post`
 Setup a handler for POST type requests
 
-* Params: 
+* Params:
   * __string__ route
   * __function__ handler
 
 `patch`
 Setup a handler for PATCH type requests
 
-* Params: 
+* Params:
   * __string__ route
   * __function__ handler
 
 `del`
 Setup a handler for DELETE type requests
 
-* Params: 
+* Params:
   * __string__ route
   * __function__ handler
 

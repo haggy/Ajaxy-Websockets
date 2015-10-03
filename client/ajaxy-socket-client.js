@@ -1,3 +1,4 @@
+var io = window.io = require('socket.io-client');
 var AjaxySocket = window.AjaxySocket = function(opts) {
     this.opts = opts || {};
     this.connected = false;
