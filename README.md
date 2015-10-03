@@ -5,7 +5,7 @@ Familiar with node http and Express web servers? AJAXy Websockets enables you to
 ```javascript
 /***** On the server *****/
 var io = require('socket.io')(server);
-var socketRouter = AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io, servers);
 
 // This is using websockets, not HTTP!
 socketRouter.get('/api/some_object/:id', function(req, res) {
@@ -23,7 +23,7 @@ socket.start();
 // When user clicks the button, get data for ID 1234567 from websocket!
 $('#my-button').click(function() {
     socket.get('/api/some_object/1234567', function(response) {
-        console.log(response.data); // "Hello from ID 1234567"
+        console.log(response); // "Hello from ID 1234567"
     });
 });
 ```
@@ -76,7 +76,7 @@ var server = require('http').createServer(function(request, response) {
 
 // Require socket.io and pass it to an instance of ajaxy sockets
 var io = require('socket.io')(server);
-var socketRouter = new AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io);
 
 ```
 
@@ -100,7 +100,7 @@ Make sure to copy the ajaxy websocket client (from the `client` folder in npm mo
     </body>
     <script>
         // Your socket server address
-        var host = 'ws:127.0.0.1:8888';
+        var host = 'ws://127.0.0.1:8888';
         var socket = new AjaxySocket({
             socketURL: host
         });
@@ -133,7 +133,7 @@ var server = require('http').createServer(app);
 
 // Require socket.io and pass it to an instance of ajaxy sockets
 var io = require('socket.io')(server);
-var socketRouter = new AjaxySocketRouter(io);
+var socketRouter = AjaxySocketRouter(io);
 
 ```
 
