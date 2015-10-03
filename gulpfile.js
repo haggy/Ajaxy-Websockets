@@ -7,7 +7,7 @@ gulp.task('browserify', function() {
     gulp.src('client/ajaxy-socket-client.js')
      .pipe(browserify())
      .pipe(concat('ajaxy-client.js'))
-     .pipe(gulp.dest('dist'));
+     .pipe(gulp.dest('.'));
 });
 
 gulp.task('compress', function(){
